@@ -21,12 +21,18 @@ router.post('/crearContacto', async(req,res)=>{
     return res.send(respuesta);
 });
 
-/* falta hacer el service delete para que funcione
+
 router.delete('/eliminarContacto/:id', async(req, res) =>{
 let svc = new UsuariosServices();
 let respuesta = await svc.DeleteContacto(req.params.id);
 return res.status(200).json(respuesta);
 });
-*/
+
+router.delete('/eliminarUsuario/:id', async(req, res) =>{
+    let svc = new UsuariosServices();
+    let respuesta = await svc.DeleteUsuario(req.params.id);
+    return res.status(200).json(respuesta);
+    });
+
 
 export default router;

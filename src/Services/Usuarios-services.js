@@ -37,5 +37,32 @@ export default class UsuariosServices{
         }
     return rowsAffected;
     }
+    DeleteUsuario = async (id) =>{
+        let rowsAffected=0;
+        console.log('estoy en UsuarioService deleteUsuario');
+        try{
+            let pool = await sql.connect(config);
+            let result = await pool.request().input('pId', sql.Int, id)
+                         .query('DELETE FROM Usuario WHERE Id = @pId')
+            return rowsAffected;
+        } catch(error) {
+            console.log(error);
+        }
+
+    }
+
+    DeleteContacto = async (id) =>{
+        let rowsAffected=0;
+        console.log('estoy en UsuarioService deleteContacto');
+        try{
+            let pool = await sql.connect(config);
+            let result = await pool.request().input('pId', sql.Int, id)
+                         .query('DELETE FROM Contacto WHERE Id = @pId')
+            return rowsAffected;
+        } catch(error) {
+            console.log(error);
+        }
+
+    }
 
 }

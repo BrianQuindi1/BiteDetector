@@ -1,5 +1,5 @@
 import sql from 'mssql';
-import config from '../dbconfig.js';
+import config from '../../dbconfig.js'
 import Usuario from '../Models/Usuario.js';
 export default class UsuariosServices{
 

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import PicadurasServices from '../Services/Picaduras-services';
+import PicadurasServices from '../Services/Picaduras-services.js';
 
 const router = Router();
 const picaduraService = new PicadurasServices();
@@ -37,14 +37,16 @@ router.put('/:id', async (req, res) => {
 
     const picadura = await picaduraService.updatePicadura(req.body);
 
-    return res.status(201).json(picadura);
-});
+    return res.status(200).json(picadura);
+}); 
 
 router.delete('/:id', async (req, res) => {
     console.log('Estoy en picadura controller delete');
 
-    const picadura = await picaduraService.deletePicaduraById(req.id);
+    const picadura = await picaduraService.deletePicaduraById(req.params.id);
 
-    return res.status(201).json(picadura);
+    return res.status(200).json(picadura);
 });
+
+export default router;
 

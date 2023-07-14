@@ -34,5 +34,22 @@ router.delete('/eliminarUsuario/:id', async(req, res) =>{
     return res.status(200).json(respuesta);
     });
 
+router.post('/login', async (req, res) =>{
+    let svc = new UsuariosServices();
+    let entidad = req.body;
+    let respuesta;
+    let returnEntity;
+
+    returnEntity = await svc.login(entidad);
+    if (returnEntity != null) {
+        returnEntity.Password = '*'.repeat(10);
+        //respuesta = res.status(statusCodes.OK).json(returnEntity);
+        respuesta = res.status(200).json(returnEntity);
+    } else {
+        //respuesta = res.status (statusCodes.NOT_FOUND).send('usuario inexistente');
+        respuesta = res.status(404).send("usuario inexistente");
+    }
+});
+
 
 export default router;

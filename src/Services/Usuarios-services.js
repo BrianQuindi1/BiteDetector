@@ -5,14 +5,15 @@ export default class UsuariosServices{
 
     InsertarUsuarioNuevo= async (usuario) =>{
         let rowsAffected = 0;
+        console.log(usuario);
         console.log('Estoy en: UsuariosServices.InsertarUsuarioNuevo(usuario)');
         try{
             let pool = await sql.connect(config);
             let result = await pool.request()
             .input('pMail',sql.VarChar,usuario.Mail)
-            .input('pContraseña',sql.VarChar,usuario.Contraseña)
+            .input('pPassword',sql.VarChar,usuario.Password)
             .input('pNombre',sql.VarChar,usuario.Nombre)
-            .query('INSERT [Usuario] ( [Mail], [Nombre], [Contraseña]) VALUES (@pMail,@pContraseña,@pNombre)')
+            .query('INSERT [Usuario] ( [Mail], [Nombre], [Password]) VALUES (@pMail,@pNombre,@pPassword)')
             rowsAffected = result.rowsAffected
         }catch(error){
             console.log(error);
@@ -42,7 +43,8 @@ export default class UsuariosServices{
         console.log('estoy en UsuarioService deleteUsuario');
         try{
             let pool = await sql.connect(config);
-            let result = await pool.request().input('pId', sql.Int, id)
+            let result = await pool.request()
+            .input('pId', sql.Int, id)
                          .query('DELETE FROM Usuario WHERE Id = @pId')
             return rowsAffected;
         } catch(error) {
@@ -56,7 +58,8 @@ export default class UsuariosServices{
         console.log('estoy en UsuarioService deleteContacto');
         try{
             let pool = await sql.connect(config);
-            let result = await pool.request().input('pId', sql.Int, id)
+            let result = await pool.request()
+            .input('pId', sql.Int, id)
                          .query('DELETE FROM Contacto WHERE Id = @pId')
             return rowsAffected;
         } catch(error) {
@@ -71,29 +74,33 @@ export default class UsuariosServices{
         //no tiene ningun expiration date porque no se si lo tiene que tener.
         let returnEntity=null;
         let rowsAffected;
-        returnEntity= this.getByUsernamePassword(usuario.UserName, usuario.Password)
+        returnEntity= this.getByMailPassword(usuario.Mail, usuario.Password)
+        console.log(returnEntity);
         if(returnEntity!=null){
-            if ((returnEntity.Token==null)||(returnEntity.Token.ExpirationDate==null)){
+            if ((returnEntity.Token==null)||(returnEntity.ExpirationDate==null)){
                 console.log("el token esta en null");
-                rowsAffected = await this.generateTokenById(returnEntity.Id);
+                rowsAffected = await this.generateTokenById(returnEntity.IdUsuario);
+                console.log(rowsAffected);
             }else{
                 console.log ("estan los datos");
-                rowsAffected = await this.refreshTokenById(returnEntity.Id, returnEntity.Token, expirationDate); // verificar si el token y el expiration date estan bien
+                rowsAffected = await this.refreshTokenById(returnEntity.IdUsuario, returnEntity.Token, returnEntity.ExpirationDate); // verificar si el token y el expiration date estan bien
             }
             if(rowsAffected > 0){
-                returnEntity = await this.getByUsernamePassword(usuario.UserName, usuario.Password);
+                returnEntity = await this.getByMailPassword(usuario.Mail, usuario.Password);
             }
         }
         
      return returnEntity;       
 }
 
-    getByUsernamePassword = async (userName, password)=> {
+    getByMailPassword = async (mail, password)=> {
         let returnEntity = null;
         try {
             let pool = await sql.connect(config);
-            let result = await pool.request().input('pUserName', sql.VarChar, userName).input('pPassword', sql.VarChar, password)
-                                    .query(`SELECT * FROM Usuarios where UserName = @pUserName AND Password = @pPassword`);
+            let result = await pool.request()
+            .input('pMail', sql.VarChar, mail)
+            .input('pPassword', sql.VarChar, password)
+                                    .query(`SELECT * FROM Usuario where Mail = @pMail AND Password = @pPassword`);
             returnEntity=result.recordset[0];
         } catch (error) {
             console.log(error); // aca tiene que ir otra cosa que use el log error
@@ -126,7 +133,7 @@ export default class UsuariosServices{
             let result = await pool.request()
             .input('pToken', sql.VarChar, token)
             .input('pId', sql.Int, id)
-                                    .query(`UPDATE Usuarios SET Token= @pToken WHERE Id = @pId`);
+                                    .query(`UPDATE Usuario SET Token= @pToken WHERE idUsuario = @pId`);
             rowsAffected=result.rowsAffected;
         } catch (error) {
             console.log(error); // aca tiene que ir otra cosa que use el log error

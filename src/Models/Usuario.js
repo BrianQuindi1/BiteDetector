@@ -2,7 +2,7 @@ class Usuario{
     IdUsuario;
     Mail;
     Nombre;
-    Contraseña;
+    Password;
     
 }
 export default  Usuario

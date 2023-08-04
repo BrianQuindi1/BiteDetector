@@ -109,6 +109,7 @@ export default class UsuariosServices {
         }
         return returnEntity;
     }
+    
     addMinutes = (minutes, date) => {
         return new Date(date.getTime() + minutes * 60000);
     }

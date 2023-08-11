@@ -1,17 +1,21 @@
 import tf from '@tensorflow/tfjs';
+
 const minimo = 0
 
 export default class IApicaduraService {
 
     detectarPicadura = async (picadura) => {
-        model = await tf.loadGraphModel('model/model.json'); //aca esta la clave
+        console.log("Detectar picadura");
+        model = await tf.loadGraphModel('localstorage://model.json'); //
+        console.log("Detectar picadura 0");
         let tensor = tf.browser.fromPixels(picadura, 3)
             .resizeNearestNeighbor([224, 224]) // change the image size
             .expandDims()
             .toFloat()
             .reverse(-1); // RGB -> BGR
-
+        console.log("Detectar picadura 1");
         let predictions = await model.predict(tensor).data();
+        console.log("Detectar picadura 2");
         let top5 = Array.from(predictions)
 		.map(function (p, i) { // this is Array.map
 			return {

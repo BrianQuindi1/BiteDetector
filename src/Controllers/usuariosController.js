@@ -5,7 +5,6 @@ const router = Router();
 const usuariosService = new UsuariosServices();
 
 
-
 router.post('/crearUsuario', async(req,res)=>{
     let svc = new UsuariosServices();
    let cuerpo=req.body

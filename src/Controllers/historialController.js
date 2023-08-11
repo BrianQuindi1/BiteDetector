@@ -20,5 +20,17 @@ router.get('/:id', async (req, res) => {
 
 });
 
+
+
+router.post('/Agregar', async (req, res) => {
+    console.log('Estoy en picadura controller insert');
+    console.log(req.body);
+    
+    const picadura = await historialServices.InsertarAlHistorial(req.body.IdPicadura ,req.body.IdUsuario);
+
+    return res.status(201).json(picadura);
+});
+
+
 export default router;
 

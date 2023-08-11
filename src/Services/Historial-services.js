@@ -18,5 +18,20 @@ export default class HistorialServices{
         }
         return returnEntity;
     }
+    InsertarAlHistorial = async (IdPicadura,IdUsuario) => {
+        let rowsAffected = 0;
+        console.log('Estoy en: UsuariosServices.InsertarAlHistorial(IdPicadura,IdUsuario)');
+        console.log(IdPicadura + "Us" + IdUsuario);
+        try {
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                .input('pIdPicadura', sql.Int, IdPicadura)
+                .input('pIdUsuario', sql.Int, IdUsuario)
+                .query('INSERT [historial] (IdPicadura,IdUsuario) VALUES (@pIdPicadura,@pIdUsuario)')
+            rowsAffected = result.rowsAffected
+        } catch (error) {
+            console.log(error);
 
-}
+        }
+        return rowsAffected;
+    }}

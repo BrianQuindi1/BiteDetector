@@ -21,23 +21,7 @@ export default class UsuariosServices {
         }
         return rowsAffected;
     }
-    InsertarContactoNuevo = async (contacto) => {
-        let rowsAffected = 0;
-        console.log('Estoy en: UsuariosServices.InsertarContactoNuevo(contacto,usuario)');
-        try {
-            let pool = await sql.connect(config);
-            let result = await pool.request()
-                .input('pNombre', sql.VarChar, contacto.Nombre)
-                .input('pNumero', sql.Int, contacto.Numero)
-                .input('pIdUsuario', sql.VarChar, contacto.IdUsuario)
-                .query('INSERT [Contacto] (IdUsuario,Nombre,Numero) VALUES (@pIdUsuario,@pNombre,@pNumero)')
-            rowsAffected = result.rowsAffected
-        } catch (error) {
-            console.log(error);
-
-        }
-        return rowsAffected;
-    }
+   
     DeleteUsuario = async (id) => {
         let rowsAffected = 0;
         console.log('estoy en UsuarioService deleteUsuario');
@@ -53,20 +37,7 @@ export default class UsuariosServices {
 
     }
 
-    DeleteContacto = async (id) => {
-        let rowsAffected = 0;
-        console.log('estoy en UsuarioService deleteContacto');
-        try {
-            let pool = await sql.connect(config);
-            let result = await pool.request()
-                .input('pId', sql.Int, id)
-                .query('DELETE FROM Contacto WHERE Id = @pId')
-            return rowsAffected;
-        } catch (error) {
-            console.log(error);
-        }
-
-    }
+    
 
 
     //de a partir de aca es el login

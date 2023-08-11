@@ -13,20 +13,6 @@ router.post('/crearUsuario', async(req,res)=>{
     let respuesta = await svc.InsertarUsuarioNuevo(req.body);
     return res.send(respuesta);
 });
-router.post('/crearContacto', async(req,res)=>{
-    let svc = new UsuariosServices();
-   let cuerpo=req.body
-   console.log(cuerpo);
-    let respuesta = await svc.InsertarContactoNuevo(req.body);
-    return res.send(respuesta);
-});
-
-
-router.delete('/eliminarContacto/:id', async(req, res) =>{
-let svc = new UsuariosServices();
-let respuesta = await svc.DeleteContacto(req.params.id);
-return res.status(200).json(respuesta);
-});
 
 router.delete('/eliminarUsuario/:id', async(req, res) =>{
     let svc = new UsuariosServices();

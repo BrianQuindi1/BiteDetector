@@ -69,4 +69,37 @@ export default class PicadurasServices {
         }
         return returnEntity;
     }
+    getPicaduraAgregada = async () => {
+        let returnEntity = null;
+        console.log('Estoy en: PicadurasServices.getPicaduraAgregada()');
+        try {
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                .query('SELECT TOP(1) * FROM Picadura ORDER BY IdPicadura desc');
+            returnEntity = result.recordsets[0][0];
+
+        } catch (error) {
+            console.log(error);
+        }
+        return returnEntity;
+    }
+
+    getPicaduraIdByNombre = async (nombre) => {
+        let returnEntity = null;
+        console.log('Estoy en: PicadurasServices.getPicaduraIdByNombre');
+        try {
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                .input('pNombre', sql.VarChar, nombre)
+                .query('SELECT IdPicadura FROM Picadura WHERE IdPicadura = @pId');
+            returnEntity = result.recordsets[0][0];
+
+        } catch (error) {
+            console.log(error);
+        }
+        return returnEntity;
+    }
+
+
+
 }

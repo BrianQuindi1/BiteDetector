@@ -2,6 +2,8 @@
 import * as tf from '@tensorflow/tfjs-node';
 import fs from 'fs/promises';
 import TARGET_CLASSES from '../IA/target_classes.js'
+import InsectoService from './Insecto-services.js';
+const insectoService = new InsectoService();
 const minimo = 0
 
 export default class IApicaduraService {
@@ -57,12 +59,14 @@ export default class IApicaduraService {
         //predictions.sort((a,b)=> b-a); //capaz hay que agregar un predictions= 
         console.log(predictions);
         let estado=this.calcularEstado(top5[0]);
+        let IdInsecto= await insectoService.getByName(top5[0].className)
+        console.log(IdInsecto);
         let respuesta ={
             Probabilidad: top5[0].probability,
             Estado:estado,
-            Picadura: top5[0].className
+            Picadura: IdInsecto
         }
-
+        
         /*let respuesta=({
             idInsecto:predictions.idInsecto,
             Estado: Estado,

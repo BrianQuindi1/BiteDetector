@@ -1,18 +1,43 @@
-import tf from '@tensorflow/tfjs';
-
+//import tf from '@tensorflow/tfjs';
+import * as tf from '@tensorflow/tfjs-node';
+import fs from 'fs/promises';
 const minimo = 0
 
 export default class IApicaduraService {
 
     detectarPicadura = async (picadura) => {
         console.log("Detectar picadura");
-        model = await tf.loadGraphModel('localstorage://model.json'); //
+        
+        try {
+            const model = await tf.loadGraphModel('file://src/IA/model.json');
+            console.log("Model loaded successfully");
+            
+            // Rest of your code for image processing and predictions
+
+        } catch (error) {
+            console.error("Error loading the model:", error);
+            // Handle the error or return an error response
+        }
         console.log("Detectar picadura 0");
-        let tensor = tf.browser.fromPixels(picadura, 3)
+
+        const imageBuffer = Buffer.from(picadura, 'base64');
+
+        // Convert the image buffer into a TensorFlow.js tensor
+        const imageTensor = tf.node.decodeImage(imageBuffer);
+
+        // Preprocess the image (resize, normalize, etc.)
+        const tensor = imageTensor
+            .resizeNearestNeighbor([224, 224])
+            .expandDims()
+            .toFloat()
+            .reverse(-1);
+
+        /*let tensor =  tf.browser.fromPixels(picadura, 3)
             .resizeNearestNeighbor([224, 224]) // change the image size
             .expandDims()
             .toFloat()
             .reverse(-1); // RGB -> BGR
+            */
         console.log("Detectar picadura 1");
         let predictions = await model.predict(tensor).data();
         console.log("Detectar picadura 2");
@@ -48,7 +73,7 @@ export default class IApicaduraService {
     }
 
     calcularEstado = async (prediction) => {
-        let Estado;
+        let estado;
        if(prediction>0.5){
         estado="concluso";
        }

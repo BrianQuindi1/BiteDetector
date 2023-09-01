@@ -1,26 +1,28 @@
 //import tf from '@tensorflow/tfjs';
 import * as tf from '@tensorflow/tfjs-node';
 import fs from 'fs/promises';
+import TARGET_CLASSES from '../IA/target_classes.js'
 const minimo = 0
 
 export default class IApicaduraService {
 
     detectarPicadura = async (picadura) => {
+        console.log("IMAGEN" + picadura.Foto);
         console.log("Detectar picadura");
-        
-        try {
-            const model = await tf.loadGraphModel('file://src/IA/model.json');
+       
+             const model= await tf.loadGraphModel('file://src/IA/model.json');
             console.log("Model loaded successfully");
             
             // Rest of your code for image processing and predictions
 
-        } catch (error) {
-            console.error("Error loading the model:", error);
-            // Handle the error or return an error response
-        }
         console.log("Detectar picadura 0");
 
-        const imageBuffer = Buffer.from(picadura, 'base64');
+        const img = picadura.Foto.replace(
+            /^data:image\/(png|jpeg);base64,/,
+            ""
+          );
+          
+        const imageBuffer = Buffer.from(img, 'base64');
 
         // Convert the image buffer into a TensorFlow.js tensor
         const imageTensor = tf.node.decodeImage(imageBuffer);

@@ -10,9 +10,10 @@ const picaduraCon = new PicadurasServices()
 router.post('', async (req, res) => {
     let cuerpo = req.body
     console.log(cuerpo);
-    const picadura = await picaduraCon.insertPicadura(req.body);
-    console.log(picadura);
-    let respuesta = await IApicadura.detectarPicadura(picadura);
+    const inserto = await picaduraCon.insertPicadura(req.body); //NO DEVUELVE EL OBJETO
+    const picadura = await picaduraCon.getPicaduraById()//COMO BUSCAR POR ID
+    console.log("Picadura:" + cuerpo);
+    let respuesta = await IApicadura.detectarPicadura(cuerpo);
     const NewPicadura = new Picadura({
         IdPicadura: picadura.IdPicadura,
         Foto: picadura.Foto,

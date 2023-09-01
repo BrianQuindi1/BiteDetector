@@ -58,13 +58,15 @@ export default class IApicaduraService {
         console.log(`top5 ${predictions}`);
         //predictions.sort((a,b)=> b-a); //capaz hay que agregar un predictions= 
         console.log(predictions);
-        let estado=this.calcularEstado(top5[0]);
+        console.log(top5[0]);
+        let estado=this.calcularEstado(top5[0].probability);
+        console.log("ESTADO" + estado);
         let IdInsecto= await insectoService.getByName(top5[0].className)
         console.log(IdInsecto);
         let respuesta ={
             Probabilidad: top5[0].probability,
             Estado:estado,
-            Picadura: IdInsecto
+            Picadura: IdInsecto.IdInsecto
         }
         
         /*let respuesta=({
@@ -78,16 +80,14 @@ export default class IApicaduraService {
         return respuesta;
     }
 
-    calcularEstado = async (prediction) => {
+    calcularEstado = (prediction) => {
         let estado;
-       if(prediction>0.5){
-        estado="concluso";
-       }
-       else{
-         estado="inconcluso";
-       }
-       return estado;
-    }
-
-
+        console.log("PREDICCION"+prediction);
+        if (prediction > 0.5) {
+          estado = 'concluso';
+        } else {
+          estado = 'inconcluso';
+        }
+        return estado;
+      };
 }

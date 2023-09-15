@@ -21,7 +21,19 @@ export default class UsuariosServices {
         }
         return rowsAffected;
     }
-   
+    CheckMail=async (mail)=>{
+        let returnEntity = null;
+        try {
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                .input('pMail', sql.VarChar, mail)
+                .query(`SELECT * FROM Usuario where Mail = @pMail`);
+            returnEntity = result.recordset[0];
+        } catch (error) {
+            console.log(error); // aca tiene que ir otra cosa que use el log error
+        }
+        return returnEntity;
+    }
     DeleteUsuario = async (id) => {
         let rowsAffected = 0;
         console.log('estoy en UsuarioService deleteUsuario');

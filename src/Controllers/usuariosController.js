@@ -4,13 +4,20 @@ import UsuariosServices from '../Services/Usuarios-services.js'
 const router = Router();
 const usuariosService = new UsuariosServices();
 
-
-router.post('/crearUsuario', async(req,res)=>{
+router.post('/crearUsuario', async (req, res) => {
     let svc = new UsuariosServices();
-   let cuerpo=req.body
-   console.log(cuerpo);
-    let respuesta = await svc.InsertarUsuarioNuevo(req.body);
-    return res.send(respuesta);
+    let cuerpo = req.body;
+    let respuesta; // Declare 'respuesta' here
+
+    console.log(cuerpo);
+    let chequeo = await svc.CheckMail(cuerpo.Mail);
+    if (chequeo != null) {
+        respuesta = res.status(404).send("Mail en uso");
+        
+    } else {
+        respuesta = await svc.InsertarUsuarioNuevo(req.body);
+        return res.send(respuesta);
+    }
 });
 
 router.delete('/eliminarUsuario/:id', async(req, res) =>{

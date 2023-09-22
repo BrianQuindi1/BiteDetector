@@ -19,13 +19,9 @@ export default class IApicaduraService {
 
         console.log("Detectar picadura 0");
 
-        const img = picadura.Foto.replace(
-            /^data:image\/(png|jpeg);base64,/,
-            ""
-          );
-          
+        const img = picadura.Foto
         const imageBuffer = Buffer.from(img, 'base64');
-
+            
         // Convert the image buffer into a TensorFlow.js tensor
         const imageTensor = tf.node.decodeImage(imageBuffer);
 

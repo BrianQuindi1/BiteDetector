@@ -16,6 +16,7 @@ router.post('', async (req, res) => {
     console.log("Picadura:" + cuerpo);
     let respuesta = await IApicadura.detectarPicadura(cuerpo);
     console.log(respuesta);
+    
     console.log("IDPICADURA:"+ picadura.IdPicadura);
 
     /*let NewPicadura = new Picadura({

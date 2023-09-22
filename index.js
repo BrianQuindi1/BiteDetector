@@ -21,6 +21,10 @@ app.use("/api/historial", HistorialRouter);
 app.use("/api/contacto", ContactoRouter);
 app.use("/api/IA", IARouter);
 
+//esto debería servir para agrandar el tamaño de lo que puede recibir por parametros (lo saque de chatgpt)
+app.use(bodyParser.json({ limit: '100mb' }));
+app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
+
 app.get('/', async(req,res)=>{
     res.json({ message: "Hola desde el servidor!" });
 })

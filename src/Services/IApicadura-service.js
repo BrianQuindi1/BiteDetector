@@ -9,6 +9,9 @@ const minimo = 0
 export default class IApicaduraService {
 
     detectarPicadura = async (picadura) => {
+       /* if ((picadura!=null) && (picadura.Foto !=null)){
+
+        }*/ //meter todo adentro de esto como dijo polsuh
         console.log("IMAGEN" + picadura.Foto);
         console.log("Detectar picadura");
        

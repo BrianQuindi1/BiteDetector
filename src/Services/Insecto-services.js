@@ -8,14 +8,15 @@ export default class InsectoService{
         
         let returnEntity = null;
         console.log('Estoy en: InsectoService.GetByName(nombre)');
-        console.log("el nombre que me esta llegandoe es", nombre);
+        console.log('El nombre que me esta llegandoe es: ', nombre);
         try {
             let pool = await sql.connect(config);
             let result = await pool.request()
-                                    .input('pNombre', sql.VarChar, nombre)
+                                    //.input('pNombre', sql.VarChar, nombre)
                                     //.query(`SELECT IdInsecto FROM Insecto WHERE Nombre = '@pNombre'`);
                                     .query(`SELECT IdInsecto FROM Insecto WHERE Nombre = 'spider'`);
             returnEntity = result.recordsets[0]; //[0]
+            console.log(result);
             console.log(returnEntity);
         } catch (error) {
             console.log(error);

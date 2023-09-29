@@ -9,10 +9,9 @@ const minimo = 0
 export default class IApicaduraService {
 
     detectarPicadura = async (picadura) => {
-       /* if ((picadura!=null) && (picadura.Foto !=null)){
-
-        }*/ //meter todo adentro de esto como dijo polsuh
-        console.log("IMAGEN" + picadura.Foto);
+        let respuesta;
+        if ((picadura!=null) || (picadura.Foto !=null)){
+            console.log("IMAGEN" + picadura.Foto);
         console.log("Detectar picadura");
        
              const model= await tf.loadGraphModel('file://src/IA/model.json');
@@ -66,11 +65,19 @@ export default class IApicaduraService {
         console.log("ESTADO" + estado);
         let IdInsecto= await insectoService.getByName(top5[0].className);
         console.log(IdInsecto);
-        let respuesta ={
+        respuesta ={
             Probabilidad: top5[0].probability,
             Estado:estado,
             Picadura: IdInsecto.IdInsecto
         }
+        }else{
+            respuesta={
+                Probabilidad: 0,
+                Estado: "No llego la imagen",
+                Picadura: null
+            }
+        } 
+        
         
         /*let respuesta=({
             idInsecto:predictions.idInsecto,

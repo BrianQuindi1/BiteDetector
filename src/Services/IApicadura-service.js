@@ -58,7 +58,7 @@ export default class IApicaduraService {
         console.log(`top5 ${predictions}`);
         //predictions.sort((a,b)=> b-a); //capaz hay que agregar un predictions= 
         console.log(predictions);
-        console.log("top5 ", top5[0].className);
+        console.log("top5 ", top5[0]);
         let estado=this.calcularEstado(top5[0].probability);
         console.log("ESTADO" + estado);
         let IdInsecto= await insectoService.getByName(top5[0].className);

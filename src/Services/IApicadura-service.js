@@ -67,7 +67,7 @@ export default class IApicaduraService {
         respuesta = {
             Probabilidad: top5[0].probability,
             Estado: estado,
-            Picadura: IdInsecto.IdInsecto,
+            Picadura: IdInsecto,
       };
     } else {
       respuesta = {

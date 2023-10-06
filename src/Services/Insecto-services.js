@@ -22,6 +22,7 @@ export default class InsectoService{
         } catch (error) {
             console.error('Error executing SQL query:', error);
         }
+    return returnEntity
     }
    
     }

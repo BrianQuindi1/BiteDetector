@@ -16,7 +16,7 @@ export default class InsectoService{
                 .input('pNombre', sql.VarChar, nombre)
                 .query(`SELECT IdInsecto FROM Insecto WHERE Nombre = @pNombre`);
                 
-            returnEntity = result.recordsets[0][0];
+            returnEntity = result.recordsets[0];
             console.log('Query result:', result);
             console.log('Return entity:', returnEntity);
         } catch (error) {

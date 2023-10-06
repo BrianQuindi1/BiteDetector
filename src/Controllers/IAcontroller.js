@@ -9,7 +9,9 @@ const IApicadura = new IApicaduraService();
 const picaduraCon = new PicadurasServices()
 router.post('', async (req, res) => {
     let cuerpo = req.body
-    console.log("CUERPO: " + cuerpo);
+    console.log("CUERPO: ");
+    console.log(cuerpo);
+    console.log("CUERPO: ", cuerpo);
     const inserto = await picaduraCon.insertPicadura(req.body); 
     const picadura = await picaduraCon.getPicaduraAgregada();
     console.log(picadura);

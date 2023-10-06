@@ -10,18 +10,18 @@ export default class InsectoService{
         console.log('Estoy en: InsectoService.GetByName(nombre)');
         console.log('El nombre que me esta llegandoe es: ', nombre);
         try {
+            console.log(`Executing SQL query: SELECT IdInsecto FROM Insecto WHERE Nombre = @pNombre`);
             let pool = await sql.connect(config);
             let result = await pool.request()
-                                    .input('pNombre', sql.VarChar, nombre)
-                                    .query(`SELECT IdInsecto FROM Insecto WHERE Nombre = @pNombre`);
-                                    
-            returnEntity = result.recordsets[0]; //[0]
-            console.log(result);
-            console.log(returnEntity);
+                .input('pNombre', sql.VarChar, nombre)
+                .query(`SELECT IdInsecto FROM Insecto WHERE Nombre = @pNombre`);
+                
+            returnEntity = result.recordsets[0][0];
+            console.log('Query result:', result);
+            console.log('Return entity:', returnEntity);
         } catch (error) {
-            console.log(error);
+            console.error('Error executing SQL query:', error);
         }
-        return returnEntity;
     }
    
     }

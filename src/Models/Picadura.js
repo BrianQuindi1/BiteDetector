@@ -1,5 +1,6 @@
 class Picadura{
     IdPicadura;
+    Nombre;
     Foto;
     Estado;
     IdInsecto;

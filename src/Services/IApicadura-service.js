@@ -68,12 +68,14 @@ export default class IApicaduraService {
             Probabilidad: top5[0].probability,
             Estado: estado,
             Picadura: IdInsecto.IdInsecto,
+            Nombre: top5[0].className
       };
     } else {
       respuesta = {
         Probabilidad: 0,
         Estado: "No llego la imagen",
         Picadura: null,
+        Nombre: null
       };
     }
 

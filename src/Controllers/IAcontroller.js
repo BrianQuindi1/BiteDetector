@@ -31,11 +31,12 @@ router.post('', async (req, res) => {
     )*/
     let NewPicadura = new Picadura();
     NewPicadura.IdPicadura=picadura.IdPicadura;
-    NewPicadura.Foto=picadura.Foto
-    NewPicadura.Estado=respuesta.Estado
-    NewPicadura.IdInsecto=respuesta.Picadura
-    NewPicadura.Probabilidades=respuesta.Probabilidad
-
+    NewPicadura.Foto=picadura.Foto;
+    NewPicadura.Estado=respuesta.Estado;
+    NewPicadura.IdInsecto=respuesta.Picadura;
+    NewPicadura.Probabilidades=respuesta.Probabilidad;
+    NewPicadura.Nombre=respuesta.Nombre;
+    
 
 
 

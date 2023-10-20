@@ -63,18 +63,19 @@ export default class IApicaduraService {
         let estado = this.calcularEstado(top5[0].probability);
         console.log("ESTADO" + estado);
         let IdInsecto = await insectoService.getByName(top5[0].className);
+        
         console.log(IdInsecto);
         respuesta = {
             Probabilidad: top5[0].probability,
             Estado: estado,
-            Picadura: IdInsecto.IdInsecto,
+            IdInsecto: IdInsecto.IdInsecto,
             Nombre: top5[0].className
       };
     } else {
       respuesta = {
         Probabilidad: 0,
         Estado: "No llego la imagen",
-        Picadura: null,
+        IdInsecto: null,
         Nombre: null
       };
     }

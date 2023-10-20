@@ -2,11 +2,14 @@ import { Router } from 'express';
 import Picadura from '../Models/Picadura.js';
 import IApicaduraService from '../Services/IApicadura-service.js';
 import PicadurasServices from '../Services/Picaduras-services.js';
+import InsectoService from '../Services/Insecto-services.js';
+import InsectoService from '../Services/Insecto-services.js';
 
 
 const router = Router();
 const IApicadura = new IApicaduraService();
 const picaduraCon = new PicadurasServices()
+const InsectoSrc = new InsectoService();
 router.post('', async (req, res) => {
     let cuerpo = req.body
     console.log("CUERPO: ");
@@ -14,6 +17,7 @@ router.post('', async (req, res) => {
     console.log("CUERPO: ", cuerpo);
     const inserto = await picaduraCon.insertPicadura(req.body); 
     const picadura = await picaduraCon.getPicaduraAgregada();
+    const InfoInsecto = await InsectoSrc.getInsecto(respuesta.IdInsecto)
     console.log(picadura);
     console.log("Picadura:" + cuerpo);
     let respuesta = await IApicadura.detectarPicadura(cuerpo);
@@ -33,9 +37,10 @@ router.post('', async (req, res) => {
     NewPicadura.IdPicadura=picadura.IdPicadura;
     NewPicadura.Foto=picadura.Foto;
     NewPicadura.Estado=respuesta.Estado;
-    NewPicadura.IdInsecto=respuesta.Picadura;
+    NewPicadura.IdInsecto=respuesta.IdInsecto;
     NewPicadura.Probabilidades=respuesta.Probabilidad;
     NewPicadura.Nombre=respuesta.Nombre;
+    
     
 
 
@@ -43,7 +48,16 @@ router.post('', async (req, res) => {
     console.log(NewPicadura);
 
     const picaduraUpdate = await picaduraCon.updatePicadura(picadura.IdPicadura,NewPicadura)
-    return res.send(respuesta);
+    const Diagnostico ={
+        IdPicadura:picadura.IdPicadura,
+        Foto:picadura.Foto,
+        Estado:respuesta.Estado,
+        Probabilidad:respuesta.Probabilidad,
+        Nombre:respuesta.Nombre,
+        Recomendaciones:InfoInsecto.Recomendaciones
+
+    }
+    return res.send(Diagnostico);
 });
 
 export default router;

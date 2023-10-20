@@ -24,5 +24,25 @@ export default class InsectoService{
         }
     return returnEntity
     }
+    getInsecto= async (id)=>{
+        let returnEntity = null;
+        console.log('Estoy en: InsectoService.getRecomendaciones(id)');
+        console.log('El id que me esta llegando es: ', id);
+        try {
+            console.log(`Executing SQL query: SELECT * FROM Insecto WHERE IdInsecto = @pId`);
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                .input('pId', sql.VarChar, id)
+                .query(`SELECT * FROM Insecto WHERE IdInsecto = @pId`);
+                
+            returnEntity = result.recordsets[0][0];
+            
+        } catch (error) {
+            console.error('Error executing SQL query:', error);
+        }
+    return returnEntity
+
+    }
    
     }
+ 

@@ -6,6 +6,7 @@ import PicadurasRouter from "./src/Controllers/picadurasController.js"
 import HistorialRouter from './src/Controllers/historialController.js'
 import IARouter from "./src/Controllers/IAcontroller.js"
 import ContactoRouter from "./src/Controllers/contactosController.js"
+import InsectoRouter from "./src/Controllers/usuariosController.js"
 const app= express();
 const port =3000;
 app.use(cors())
@@ -21,6 +22,7 @@ app.use("/api/picadura", PicadurasRouter);
 app.use("/api/historial", HistorialRouter);
 app.use("/api/contacto", ContactoRouter);
 app.use("/api/IA", IARouter);
+app.use("/api/insecto", InsectoRouter);
 
 //esto debería servir para agrandar el tamaño de lo que puede recibir por parametros (lo saque de chatgpt)
 /*app.use(bodyParser.json({ limit: '100mb' }));

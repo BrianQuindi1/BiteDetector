@@ -3,7 +3,7 @@ import Picadura from '../Models/Picadura.js';
 import IApicaduraService from '../Services/IApicadura-service.js';
 import PicadurasServices from '../Services/Picaduras-services.js';
 import InsectoService from '../Services/Insecto-services.js';
-import InsectoService from '../Services/Insecto-services.js';
+
 
 
 const router = Router();

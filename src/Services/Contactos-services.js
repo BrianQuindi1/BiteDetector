@@ -18,6 +18,20 @@ export default class ContactosServices{
         }
         return returnEntity;
     }
+    getAll = async () => {
+        let returnEntity = null;
+        console.log('Estoy en: ContactosServices.GETaLL');
+        try {
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+            .query("SELECT * FROM Contacto");
+          returnEntity = result.recordset;
+        } catch (error) {
+          console.log(error);
+        }
+        return returnEntity;
+    }
+
     DeleteContacto = async (id) => {
         let rowsAffected = 0;
         console.log('estoy en ContactosServices deleteContacto');

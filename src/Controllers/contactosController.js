@@ -20,6 +20,22 @@ router.get('/:id', async (req, res) => {
     return respuesta;
 
 });
+router.get('/', async (req, res) => {
+    console.log("Estoy en contactos controller getAll");
+    let respuesta;
+
+    const contacto = await contactosServices.getAll();
+    if (contacto != null) {
+
+        respuesta = res.status(200).json(contacto);
+    }
+    else {
+        respuesta = res.status(404).send("algo fallo obteniendo los contactos");
+    }
+    return respuesta;
+
+});
+
 router.post('/crearContacto', async(req,res)=>{
     let svc = new UsuariosServices();
    let cuerpo=req.body

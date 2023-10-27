@@ -19,6 +19,21 @@ router.get('/:id', async (req, res) => {
     return respuesta;
 
 });
+router.get('/', async (req, res) => {
+    console.log("Estoy en historial controller getAll");
+    let respuesta;
+
+    const historial = await historialServices.getAll();
+    if (historial != null) {
+
+        respuesta = res.status(200).json(historial);
+    }
+    else {
+        respuesta = res.status(404).send("algo fallo obteniendo el historial");
+    }
+    return respuesta;
+
+});
 
 
 

@@ -24,7 +24,7 @@ export default class HistorialServices {
     try {
         let pool = await sql.connect(config);
         let result = await pool.request()
-        .query("SELECT * FROM Historial ");
+        .query("SELECT * FROM Historial  INNER JOIN Picadura on Historial.IdPicadura=Picadura.IdPicadura INNER JOIN Insecto on Picadura.IdInsecto=Insecto.IdInsecto ");
       returnEntity = result.recordset;
     } catch (error) {
       console.log(error);

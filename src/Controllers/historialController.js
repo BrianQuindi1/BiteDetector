@@ -25,7 +25,6 @@ router.get('/', async (req, res) => {
 
     const historial = await historialServices.getAll();
     if (historial != null) {
-
         respuesta = res.status(200).json(historial);
     }
     else {

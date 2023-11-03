@@ -9,6 +9,7 @@ router.get('/:id', async (req, res) => {
     let respuesta;
 
     const historial = await historialServices.getById(req.params.id);
+    console.log(historial);
     if (historial != null) {
 
         respuesta = res.status(200).json(historial);

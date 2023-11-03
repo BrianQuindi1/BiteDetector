@@ -52,7 +52,6 @@ router.post('', async (req, res) => {
     const picaduraUpdate = await picaduraCon.updatePicadura(picadura.IdPicadura,NewPicadura)
     const Diagnostico ={
         IdPicadura:picadura.IdPicadura,
-        Foto:picadura.Foto,
         Estado:respuesta.Estado,
         Probabilidad:respuesta.Probabilidad,
         Nombre:respuesta.Nombre,

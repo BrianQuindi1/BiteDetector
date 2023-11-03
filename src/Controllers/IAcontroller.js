@@ -17,10 +17,11 @@ router.post('', async (req, res) => {
     console.log("CUERPO: ", cuerpo);
     const inserto = await picaduraCon.insertPicadura(req.body); 
     const picadura = await picaduraCon.getPicaduraAgregada();
-    const InfoInsecto = await InsectoSrc.getInsecto(respuesta.IdInsecto)
+    
     console.log(picadura);
     console.log("Picadura:" + cuerpo);
     let respuesta = await IApicadura.detectarPicadura(cuerpo);
+    const InfoInsecto = await InsectoSrc.getInsecto(respuesta.IdInsecto)
     console.log(respuesta);
     
     console.log("IDPICADURA:"+ picadura.IdPicadura);

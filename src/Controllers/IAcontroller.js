@@ -56,7 +56,7 @@ router.post('', async (req, res) => {
         Estado:respuesta.Estado,
         Probabilidad:respuesta.Probabilidad,
         Nombre:respuesta.Nombre,
-        Recomendaciones:InfoInsecto.Recomendaciones
+        Recomendaciones:InfoInsecto
 
     }
     return res.send(Diagnostico);

@@ -11,7 +11,7 @@ export default class HistorialServices {
         .request()
         .input("pId", sql.Int, id)
         .query("SELECT * FROM Historial  INNER JOIN Picadura on Historial.IdPicadura=Picadura.IdPicadura INNER JOIN Insecto on Picadura.IdInsecto=Insecto.IdInsecto  WHERE idUsuario = @pId ");
-      returnEntity = result.recordsets[0][0];
+      returnEntity = result.recordsets[0];
     } catch (error) {
       console.log(error);
     }

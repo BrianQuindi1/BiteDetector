@@ -32,7 +32,7 @@ export default class InsectoService{
             console.log(`Executing SQL query: SELECT * FROM Insecto WHERE IdInsecto = @pId`);
             let pool = await sql.connect(config);
             let result = await pool.request()
-                .input('pId', sql.VarChar, id)
+                .input('pId', sql.int, id)
                 .query(`SELECT * FROM Insecto WHERE IdInsecto = @pId`);
                 
             returnEntity = result.recordsets[0][0];

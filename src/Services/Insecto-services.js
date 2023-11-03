@@ -32,11 +32,12 @@ export default class InsectoService{
             console.log(`Executing SQL query: SELECT * FROM Insecto WHERE IdInsecto = @pId`);
             let pool = await sql.connect(config);
             let result = await pool.request()
-                .input('pId', sql.int, id)
+                .input('pId', sql.Int, id)
                 .query(`SELECT * FROM Insecto WHERE IdInsecto = @pId`);
                 
             returnEntity = result.recordsets[0][0];
-            
+            console.log('Query result:', result);
+            console.log('Return entity:', returnEntity);
         } catch (error) {
             console.error('Error executing SQL query:', error);
         }

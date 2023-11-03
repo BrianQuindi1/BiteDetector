@@ -58,6 +58,7 @@ router.post('', async (req, res) => {
         Recomendaciones:{SintomasGraves:InfoInsecto.SintomasGraves,SintomasLeves:InfoInsecto.SintomasLeves,Recomendaciones:InfoInsecto.Recomendaciones,MasInfo:InfoInsecto.MasInfo}
 
     }
+    console.log("Diagnostico final ", Diagnostico);
     return res.send(Diagnostico);
 });
 

@@ -22,6 +22,7 @@ router.post('', async (req, res) => {
     console.log("Picadura:" + cuerpo);
     let respuesta = await IApicadura.detectarPicadura(cuerpo);
     const InfoInsecto = await InsectoSrc.getInsecto(respuesta.IdInsecto)
+    console.log("Info Insecto:", InfoInsecto);
     console.log(respuesta);
     
     console.log("IDPICADURA:"+ picadura.IdPicadura);

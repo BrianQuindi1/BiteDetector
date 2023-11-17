@@ -11,7 +11,7 @@ export default class ContactosServices{
             let result = await pool.request()
                                     .input('pId', sql.Int, id)
                                     .query('SELECT * FROM Contacto WHERE idUsuario = @pId');
-            returnEntity = result.recordsets[0][0];
+            returnEntity = result.recordsets[0];
 
         } catch (error) {
             console.log(error);

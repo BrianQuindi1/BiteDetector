@@ -10,7 +10,7 @@ export default class HistorialServices {
       let result = await pool
         .request()
         .input("pId", sql.Int, id)
-        .query("SELECT * FROM Historial  INNER JOIN Picadura on Historial.IdPicadura=Picadura.IdPicadura INNER JOIN Insecto on Picadura.IdInsecto=Insecto.IdInsecto  WHERE idUsuario = @pId ");
+        .query("SELECT * FROM Historial  INNER JOIN Picadura on Historial.IdPicadura=Picadura.IdPicadura INNER JOIN Insecto on Picadura.IdInsecto=Insecto.IdInsecto  WHERE idUsuario = @pId");
       returnEntity = result.recordsets[0];
     } catch (error) {
       console.log(error);
@@ -24,7 +24,7 @@ export default class HistorialServices {
     try {
         let pool = await sql.connect(config);
         let result = await pool.request()
-        .query("SELECT * FROM Historial  INNER JOIN Picadura on Historial.IdPicadura=Picadura.IdPicadura INNER JOIN Insecto on Picadura.IdInsecto=Insecto.IdInsecto ");
+        .query("SELECT * FROM Historial  INNER JOIN Picadura on Historial.IdPicadura=Picadura.IdPicadura INNER JOIN Insecto on Picadura.IdInsecto=Insecto.IdInsecto");
       returnEntity = result.recordset;
     } catch (error) {
       console.log(error);
@@ -32,6 +32,8 @@ export default class HistorialServices {
     return returnEntity;
   };
   InsertarAlHistorial = async (IdPicadura, IdUsuario) => {
+    console.log("los datos que llegan");
+    console.log(IdPicadura, IdUsuario);
     let rowsAffected = 0;
     console.log(
       "Estoy en: UsuariosServices.InsertarAlHistorial(IdPicadura,IdUsuario)"
